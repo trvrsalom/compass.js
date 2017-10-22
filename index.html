@@ -1,0 +1,99 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="css/bulma.css"/>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<style>
+			.inline-code {
+				background-color: whitesmoke;
+				color: #4a4a4a;
+				font-family: monospace;
+				-webkit-font-smoothing: auto;
+			}
+		</style>
+	</head>
+	<body>
+		<section class="hero is-info is-medium">
+			<div class="hero-head">
+				<nav class="navbar">
+					<div class="container">
+						<div class="navbar-brand">
+							<a class="navbar-item"><span class="icon is-medium"><i class="fa fa-compass fa-3x"></i></span></a> <span class="navbar-burger burger" data-target="navbarMenuHeroB"><span></span> <span></span> <span></span></span>
+						</div>
+						<div class="navbar-menu" id="navbarMenuHeroB">
+							<div class="navbar-end">
+								<a href="/" class="navbar-item is-active">Introduction</a>
+								<a href="#/docs" class="navbar-item">Documentation</a>
+								<a class="navbar-item" href="https://github.com/trvrsalom/compass.js"><span class="icon"><i class="fa fa-github"></i></span> <span>Contribute</span></a>
+								<a class="navbar-item" href="https://github.com/trvrsalom/compass.js/archive/master.zip"><span class="icon"><i class="fa fa-cloud-download"></i></span> <span>Download</span></a>
+							</div>
+						</div>
+					</div>
+				</nav>
+			</div>
+		</section>
+	    <compassBody style=""></compassBody>
+	    <footer class="footer" style="position: relative; bottom: 0px;">
+			<div class="container">
+				<div class="content has-text-centered">
+					<p>
+						<strong>Compass.js</strong> by <a href="http://trevorsalom.com">Trevor Salom</a>.
+					</p>
+				</div>
+			</div>
+		</footer>
+		<script type="text/javascript" src="js/compass.js"></script>
+		<script>
+			var setActiveTab = function(position) {
+				var elms = document.getElementsByClassName("navbar-item");
+				var act = document.getElementsByClassName("is-active")[0];
+				act.classList.remove("is-active");
+				elms[position+1].classList.add("is-active");
+			}
+
+			var pageFunctions = {
+				index: function() {
+					setActiveTab(0);
+					compass.render("views/main.html");
+				},
+				docs: function() {
+					setActiveTab(1);
+					compass.render("views/docs.html");
+				},
+				test: function(params) {
+					console.log(params);
+				}
+			}
+
+			compass.map({
+				"/" : pageFunctions.index,
+				"/docs": pageFunctions.docs,
+				"404" : "views/404error.html"
+			});
+			compass.onLoad = function() {
+					window.scrollTo(0, 0);
+				  // Get all "navbar-burger" elements
+				  var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+				  // Check if there are any navbar burgers
+				  if ($navbarBurgers.length > 0) {
+
+				    // Add a click event on each of them
+				    $navbarBurgers.forEach(function ($el) {
+				      $el.addEventListener('click', function () {
+
+				        // Get the target from the "data-target" attribute
+				        var target = $el.dataset.target;
+				        var $target = document.getElementById(target);
+
+				        // Toggle the class on both the "navbar-burger" and the "navbar-menu"
+				        $el.classList.toggle('is-active');
+				        $target.classList.toggle('is-active');
+
+				      });
+				    });
+				  }
+			}
+			compass.update();
+		</script>
+	</body>
+</html>

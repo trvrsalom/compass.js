@@ -1,0 +1,119 @@
+<section class="section">
+	<div class="container">
+		<h1 class="title">Getting Started</h1>
+		<h3 class="title is-4">Installation</h3>
+		<div class="content">
+			When using Compass, one of the first things you will need to do is create your main HTML file, which will hold the <span class="inline-code">compass-body</span> element. This element is where Compass will render your desired view.
+<pre style="margin: 0; line-height: 125%"><span style="color: #1e90ff; font-weight: bold">&lt;html&gt;</span>
+	<span style="color: #1e90ff; font-weight: bold">&lt;head&gt;</span>
+		<span style="color: #1e90ff; font-weight: bold">&lt;title&gt;</span>Compass.js Demo<span style="color: #1e90ff; font-weight: bold">&lt;/title&gt;</span>
+	<span style="color: #1e90ff; font-weight: bold">&lt;/head&gt;</span>
+	<span style="color: #1e90ff; font-weight: bold">&lt;body&gt;</span>
+		<span style="color: #1e90ff; font-weight: bold">&lt;compass-body</span><span style="color: #1e90ff; font-weight: bold">&gt;</span><span style="color: #1e90ff; font-weight: bold">&lt;/compass-body&gt;</span>
+	<span style="color: #1e90ff; font-weight: bold">&lt;/body&gt;</span>
+<span style="color: #1e90ff; font-weight: bold">&lt;/html&gt;</span>
+</pre>
+
+		</div>
+		<div class="content">
+			To install compass, include it like you would with any other javascript file.<pre style="margin: 0; line-height: 125%"><span style="color: #1e90ff; font-weight: bold">&lt;script </span><span style="color: #1e90ff">type=</span><span style="color: #aa5500">&quot;text/javascript&quot;</span> <span style="color: #1e90ff">src=</span><span style="color: #aa5500">&quot;js/compass.js&quot;</span><span style="color: #1e90ff; font-weight: bold">&gt;&lt;/script&gt;</span>
+</pre>
+
+		</div>
+		
+		<h3 class="title is-4">Basic Usage</h3>
+		<div class="content">
+			To actually start using compass, you will need to call the <span class="inline-code">compass.map()</span> function. <span class="inline-code">compass.map()</span> takes one parameter, an object specifying where each route should lead. Each route can either directly link to an HTML file, or it can link to a fuction.
+			<pre style="margin: 0; line-height: 125%"><span style="color: #1e90ff; font-weight: bold">&lt;script&gt;</span>
+	<span style="color: #0000aa">function</span> loadUserPage() {
+		<span style="color: #aaaaaa; font-style: italic">// Code to load user page will go here.</span>
+	}
+
+	compass.map({
+		<span style="color: #aa5500">&quot;/&quot;</span> : <span style="color: #aa5500">&quot;views/index.html&quot;</span>,
+		<span style="color: #aa5500">&quot;/about&quot;</span> : <span style="color: #aa5500">&quot;views/about.html&quot;</span>,
+		<span style="color: #aa5500">&quot;/user&quot;</span> : loadUserPage
+	});
+<span style="color: #1e90ff; font-weight: bold">&lt;/script&gt;</span></pre>
+		</div>
+		<div class="content">
+			Compass uses hash based routing to resolve the issue of browsers making requests to non-existent pages. For you, this means that you when linking to your newly created routes, you will need to add <span class="inline-code">#</span> to your links, like this:
+			<pre style="margin: 0; line-height: 125%"><span style="color: #1e90ff; font-weight: bold">&lt;a</span> <span style="color: #1e90ff">href=</span><span style="color: #aa5500">&quot;/&quot;</span><span style="color: #1e90ff; font-weight: bold">&gt;</span>Home<span style="color: #1e90ff; font-weight: bold">&lt;/a&gt;</span>
+<span style="color: #1e90ff; font-weight: bold">&lt;a</span> <span style="color: #1e90ff">href=</span><span style="color: #aa5500">&quot;#/about&quot;</span><span style="color: #1e90ff; font-weight: bold">&gt;</span>About<span style="color: #1e90ff; font-weight: bold">&lt;/a&gt;</span>
+<span style="color: #1e90ff; font-weight: bold">&lt;a</span> <span style="color: #1e90ff">href=</span><span style="color: #aa5500">&quot;#/user&quot;</span><span style="color: #1e90ff; font-weight: bold">&gt;</span>User Dashboard<span style="color: #1e90ff; font-weight: bold">&lt;/a&gt;</span></pre>
+		</div>
+		<div class="content">
+			So that's the basics of using compass. Now go build something neat, or stick around and learn about some more useful features. 
+		</div>
+	</div>
+	<br />
+	<div class="container">
+		<h1 class="title ">Additional  Features</h1>
+		<h3 class="title is-4">URL Parameters</h3>
+		<div class="content">
+			URL parameters are segments of the url which can be used to hold specific values passed which we may need to properly direct the user to the correct resource.
+			
+			For example, if we receive a request to load the page <span class="inline-code">#/posts/45</span>, we know that we want to load a page to display post #45. Rather than define a route for every post up to 45, we can instead define one route like this: <span class="inline-code">#/posts/:postID</span>, and decide what to with the <span class="inline-code">postID</span> value later.
+<pre style="margin: 0; line-height: 125%"><span style="color: #1e90ff; font-weight: bold">&lt;script&gt;</span>
+	<span style="color: #0000aa">function</span> loadPost(params) {
+		<span style="color: #aaaaaa; font-style: italic">// Params is an object containing our URL parameters.</span>
+		<span style="color: #0000aa">var</span> postID = params.postID;
+		console.log(<span style="color: #aa5500">&quot;Loading post:&quot;</span>, postID);
+		compass.render("posts/" + postID + ".html");
+	}
+
+	compass.map({
+		<span style="color: #aa5500">&quot;/posts&quot;</span> : <span style="color: #aa5500">&quot;views/posts.html&quot;</span>,
+		<span style="color: #aa5500">&quot;#/post/:postID&quot;</span> : loadPost
+	});
+<span style="color: #1e90ff; font-weight: bold">&lt;/script&gt;</span>
+</pre>
+
+		</div>
+		<div class="content">
+			URL parameters open up a lot of possibilities regarding what you can do in terms of page routing. You can also have multiple parameters defined in one URL.
+		</div>
+		<h3 class="title is-4">Page Rendering</h3>
+		<div class="content">
+			On their own, URL parameters aren't very helpful, since you need to actually show some content to your users. The <span class="inline-code">compass.render()</span> function allows you to utilize Compass' native rendering function to replace <span class="inline-code">compass-body</span> with your content.
+			<pre style="margin: 0; line-height: 125%"><span style="color: #1e90ff; font-weight: bold">&lt;script&gt;</span>
+	<span style="color: #0000aa">function</span> loadPost(params) {
+		<span style="color: #0000aa">var</span> postID = params.postID;
+		compass.render("posts/" + postID + ".html");
+	}
+<span style="color: #1e90ff; font-weight: bold">&lt;/script&gt;</span>
+</pre>
+
+		</div>
+		<h3 class="title is-4">Always Functions</h3>
+		<div class="content">
+			If for some reason you need to have a piece of code run everytime you load a page, you have a couple of options. You can define either a <span class="inline-code">compass.beforeLoad()</span> function or a <span class="inline-code">compass.onLoad()</span> function. These functions work as you expect, being called before and after rendering the page, and are useful if you have any constant UI elements or a need to validate user identity on every page. 
+			<pre style="margin: 0; line-height: 125%"><span style="color: #1e90ff; font-weight: bold">&lt;script&gt;</span>
+	compass.onLoad = <span style="color: #0000aa">function</span>() {
+		<span style="color: #aaaaaa; font-style: italic">// Called after the content is rendered.</span>
+		<span style="color: #00aaaa">window</span>.scrollTo(<span style="color: #009999">0</span>,<span style="color: #009999">0</span>);
+	}
+
+	compass.beforeLoad = <span style="color: #0000aa">function</span>() {
+		<span style="color: #aaaaaa; font-style: italic">// Called before the content is rendered.</span>
+	}
+<span style="color: #1e90ff; font-weight: bold">&lt;/script&gt;</span>
+</pre>
+
+		</div>
+		<h3 class="title is-4">404 Page</h3>
+		<div class="content">
+			Sometimes your user won't always end up where you want them to be. If this is the case you will probably want to show them some sort of error page. This can be accomplished by defining a 404 route in your <span class="inline-code">compass.map</span> call.
+			<pre style="margin: 0; line-height: 125%"><span style="color: #1e90ff; font-weight: bold">&lt;script&gt;</span>
+	compass.map({
+		<span style="color: #aa5500">&quot;/&quot;</span> : pageFunctions.index,
+		<span style="color: #aa5500">&quot;/docs&quot;</span>: pageFunctions.docs,
+		<span style="color: #aa5500">&quot;404&quot;</span> : <span style="color: #aa5500">&quot;views/404error.html&quot;</span>
+	});
+<span style="color: #1e90ff; font-weight: bold">&lt;/script&gt;</span>
+</pre>
+
+		</div>
+	</div>
+	
+</section>
