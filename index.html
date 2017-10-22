@@ -21,7 +21,7 @@
 						</div>
 						<div class="navbar-menu" id="navbarMenuHeroB">
 							<div class="navbar-end">
-								<a href="/" class="navbar-item is-active">Introduction</a>
+								<a href="#/" class="navbar-item is-active">Introduction</a>
 								<a href="#/docs" class="navbar-item">Documentation</a>
 								<a class="navbar-item" href="https://github.com/trvrsalom/compass.js"><span class="icon"><i class="fa fa-github"></i></span> <span>Contribute</span></a>
 								<a class="navbar-item" href="https://github.com/trvrsalom/compass.js/archive/master.zip"><span class="icon"><i class="fa fa-cloud-download"></i></span> <span>Download</span></a>
@@ -53,11 +53,11 @@
 			var pageFunctions = {
 				index: function() {
 					setActiveTab(0);
-					compass.render("views/main.html");
+					compass.render("compass.js/views/main.html");
 				},
 				docs: function() {
 					setActiveTab(1);
-					compass.render("views/docs.html");
+					compass.render("compass.js/views/docs.html");
 				},
 				test: function(params) {
 					console.log(params);
@@ -67,7 +67,7 @@
 			compass.map({
 				"/" : pageFunctions.index,
 				"/docs": pageFunctions.docs,
-				"404" : "views/404error.html"
+				"404" : "compass.js/views/404error.html"
 			});
 			compass.onLoad = function() {
 					window.scrollTo(0, 0);
